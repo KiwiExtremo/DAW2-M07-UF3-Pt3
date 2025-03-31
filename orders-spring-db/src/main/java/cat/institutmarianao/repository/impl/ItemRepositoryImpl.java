@@ -23,26 +23,27 @@ public class ItemRepositoryImpl implements ItemRepository {
 
 	@Override
 	public Item get(Long reference) {
-		Session session = sessionFactory.getCurrentSession();
-		return session.get(Item.class, reference);
+		return getSession().get(Item.class, reference);
 	}
 
 	@Override
 	public List<Item> getAll() {
-		Session session = sessionFactory.getCurrentSession();
-
-		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-		CriteriaQuery<Item> query = criteriaBuilder.createQuery(Item.class);
+		CriteriaBuilder cb = getSession().getCriteriaBuilder();
+		CriteriaQuery<Item> query = cb.createQuery(Item.class);
 
 		Root<Item> itemRoot = query.from(Item.class);
 
 		query.select(itemRoot);
-		return session.createQuery(query).list();
+
+		return getSession().createQuery(query).list();
 	}
 
 	@Override
 	public void save(Item item) {
-		Session session = sessionFactory.getCurrentSession();
-		session.persist(item);
+		getSession().persist(item);
+	}
+
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
 	}
 }

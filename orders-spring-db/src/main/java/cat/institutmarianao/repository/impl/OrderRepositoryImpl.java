@@ -23,30 +23,49 @@ public class OrderRepositoryImpl implements OrderRepository {
 
 	@Override
 	public Order get(Long reference) {
-		// TODO get order by reference
-		return null;
+		return getSession().get(Order.class, reference);
 	}
 
 	@Override
 	public List<Order> getAll() {
-		// TODO get all orders
-		return null;
+		CriteriaBuilder cb = getSession().getCriteriaBuilder();
+		CriteriaQuery<Order> query = cb.createQuery(Order.class);
+
+		Root<Order> orderRoot = query.from(Order.class);
+
+		query.select(orderRoot);
+
+		return getSession().createQuery(query).list();
 	}
 
 	@Override
 	public List<Order> findByUser(User client) {
-		// TODO find order by client
-		return null;
+		CriteriaBuilder cb = getSession().getCriteriaBuilder();
+		CriteriaQuery<Order> query = cb.createQuery(Order.class);
+
+		Root<Order> orderRoot = query.from(Order.class);
+
+		query.select(orderRoot).where(cb.equal(orderRoot.get("client"), client));
+
+		try {
+			return getSession().createQuery(query).list();
+
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public void save(Order order) {
-		// TODO save order
+		getSession().persist(order);
 	}
 
 	@Override
 	public Order update(Order order) {
-		// TODO update order
-		return null;
+		return getSession().merge(order);
+	}
+
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
 	}
 }

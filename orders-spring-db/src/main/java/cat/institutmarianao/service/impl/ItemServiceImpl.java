@@ -2,25 +2,28 @@ package cat.institutmarianao.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cat.institutmarianao.model.Item;
 import cat.institutmarianao.repository.ItemRepository;
 import cat.institutmarianao.service.ItemService;
 import jakarta.validation.constraints.NotNull;
 
-//TODO Convert it in a service
+@Service
 public class ItemServiceImpl implements ItemService {
 
-	// TODO Inject repository
-	private ItemRepository itemDao;
+	@Autowired
+	private ItemRepository itemRepository;
 
 	@Override
 	public Item get(@NotNull Long reference) {
-		return itemDao.get(reference);
+		return itemRepository.get(reference);
 	}
 
 	@Override
 	public List<Item> getAll() {
-		return itemDao.getAll();
+		return itemRepository.getAll();
 	}
 
 }

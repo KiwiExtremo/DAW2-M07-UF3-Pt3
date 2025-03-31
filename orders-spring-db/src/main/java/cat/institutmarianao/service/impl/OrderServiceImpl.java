@@ -2,40 +2,42 @@ package cat.institutmarianao.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cat.institutmarianao.model.Order;
 import cat.institutmarianao.model.User;
+import cat.institutmarianao.repository.OrderRepository;
 import cat.institutmarianao.service.OrderService;
 import jakarta.validation.constraints.NotNull;
 
-//TODO Convert it in a service
+@Service
 public class OrderServiceImpl implements OrderService {
+	@Autowired
+	private OrderRepository orderRepository;
 
 	@Override
 	public Order get(@NotNull Long reference) {
-		// TODO get order by id
-		return null;
+		return orderRepository.get(reference);
 	}
 
 	@Override
 	public List<Order> getAll() {
-		// TODO get all orders
-		return null;
+		return orderRepository.getAll();
 	}
 
 	@Override
 	public List<Order> findByUser(@NotNull User client) {
-		// TODO find orders by client
-		return null;
+		return orderRepository.findByUser(client);
 	}
 
 	@Override
 	public void save(@NotNull Order order) {
-		// TODO save order
+		orderRepository.save(order);
 	}
 
 	@Override
 	public Order update(@NotNull Order order) {
-		// TODO update order
-		return null;
+		return orderRepository.update(order);
 	}
 }

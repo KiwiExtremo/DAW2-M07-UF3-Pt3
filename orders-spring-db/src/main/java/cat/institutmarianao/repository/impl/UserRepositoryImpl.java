@@ -1,5 +1,6 @@
 package cat.institutmarianao.repository.impl;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,12 +17,15 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public User get(String username) {
-		// TODO get user by username
-		return null;
+		return getSession().get(User.class, username);
 	}
 
 	@Override
 	public void save(User user) {
-		// TODO save user
+		getSession().persist(user);
+	}
+
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
 	}
 }

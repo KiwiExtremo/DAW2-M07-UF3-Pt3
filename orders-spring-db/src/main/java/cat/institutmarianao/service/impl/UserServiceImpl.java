@@ -1,17 +1,21 @@
 package cat.institutmarianao.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cat.institutmarianao.model.User;
+import cat.institutmarianao.repository.UserRepository;
 import cat.institutmarianao.service.UserService;
 import jakarta.validation.constraints.NotBlank;
 
-//TODO Convert it in a service
+@Service
 public class UserServiceImpl implements UserService {
-	// TODO Inject repository
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public User get(@NotBlank String username) {
-		// TODO get user by username
-		return null;
+		return userRepository.get(username);
 	}
 
 }
