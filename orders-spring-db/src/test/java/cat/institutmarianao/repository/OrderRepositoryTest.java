@@ -141,7 +141,7 @@ class OrderRepositoryTest {
 
 		order.setStatus(Status.TRANSIT);
 
-		Order orderFromDB = orderRepository.get(order.getReference());
+		Order orderFromDB = orderRepository.update(order);
 
 		assertEquals(order, orderFromDB);
 	}

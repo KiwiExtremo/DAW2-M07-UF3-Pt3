@@ -47,12 +47,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
 		query.select(orderRoot).where(cb.equal(orderRoot.get("client"), client));
 
-		try {
-			return getSession().createQuery(query).list();
+		return getSession().createQuery(query).list();
 
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	@Override
